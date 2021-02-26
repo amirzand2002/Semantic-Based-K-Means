@@ -129,20 +129,19 @@ def read_music(music_file):
 # TODO: watch k-means clustering
 # TODO: check how to do similarity check with semantic similarity
 # TODO: cluster word2vec data
-# TODO: fetch labels to tweets and use those with MUSIC label :DONE
-# TODO: label data from info files  :DONE
-# TODO: Divide Music data from other data for base journal :DONE
+
 tweets = read_music('music.pkl')
+#tweets2 = read_tweets('tweets-vector-2.pkl')
+
 model = api.load("glove-twitter-25")
 
 
 def text2vec(text):
     return np.mean([model[x] for x in text.split() if x in model.vocab], axis=0).reshape(1, -1)
 
-tweets['vectors'] =''
+tweets['vectors'] = ' '
 tweets['vectors'] = text2vec(tweets.wrd_set)
 
-# tweets = read_tweets('tweets-vector-2.pkl')
 
 X = np.concatenate(tweets['set_vec'].values)
 kmeans = KMeans(n_clusters=20)
