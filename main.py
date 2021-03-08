@@ -1,4 +1,3 @@
-# reading tweets in first phase of the project
 # imports
 
 import pandas as pd
@@ -29,7 +28,7 @@ def read_tweets(tweet_file):
                  'is_near_duplicate_of', 'tokenized'])
     tweet_data_frame['wrd_set'] = ''
     tweet_data_frame.wrd_set = tweet_data_frame.text + ' ' + tweet_data_frame.set
-    # find entity_id that needed
+
     tweet_data_frame = tweet_data_frame[
         tweet_data_frame.entity_id.isin(['RL2013D04E145', 'RL2013D04E146', 'RL2013D04E149', 'RL2013D04E151',
                                          'RL2013D04E152', 'RL2013D04E153',
@@ -40,7 +39,7 @@ def read_tweets(tweet_file):
                                          'RL2013D04E194', 'RL2013D04E198', 'RL2013D04E206', 'RL2013D04E207'])]
     tweet_data_frame['entity_name'] = ''
     tweet_data_frame['entity_name_id'] = ''
-    # read entity_id and assign entity name and name id (label)  to it
+
     for index, row in tqdm(tweet_data_frame.iterrows()):
         if row.entity_id == 'RL2013D04E145':
             row.entity_name = 'Adele'
@@ -108,7 +107,6 @@ def read_tweets(tweet_file):
 
 
 def read_music(music_file):
-    # read music pickle file
     music_data_frame = pd.DataFrame(pd.read_pickle(music_file), columns=['url', 'text',
                                                                          'id', 'author',
                                                                          'entity_id', 'tweet_url',
@@ -119,7 +117,6 @@ def read_music(music_file):
                                                                          'is_near_duplicate_of',
                                                                          'set', 'tokenized', 'text_vec', 'set_vec',
                                                                          'wrd_set', 'entity_name', 'entity_name_id'])
-    # drop unnecessary column
     music_data_frame = music_data_frame.drop(
         columns=['url', 'tweet_url', 'timestamp', 'urls', 'extended_urls', 'md5_extended_urls',
                  'is_near_duplicate_of', 'tokenized'])
@@ -131,20 +128,20 @@ def read_music(music_file):
 # TODO: watch k-means clustering
 # TODO: check how to do similarity check with semantic similarity
 # TODO: cluster word2vec data
-
+# TODO: fetch labels to tweets and use those with MUSIC label :DONE
+# TODO: label data from info files  :DONE
+# TODO: Divide Music data from other data for base journal :DONE
 tweets = read_music('music.pkl')
-#tweets2 = read_tweets('tweets-vector.pkl')
-
 model = api.load("glove-twitter-25")
 
 
 def text2vec(text):
     return np.mean([model[x] for x in text.split() if x in model.vocab], axis=0).reshape(1, -1)
 
-#############################
-tweets['vectors'] = ' '
+tweets['vectors'] =''
 tweets['vectors'] = text2vec(tweets.wrd_set)
 
+# tweets = read_tweets('tweets-vector-2.pkl')
 
 X = np.concatenate(tweets['set_vec'].values)
 kmeans = KMeans(n_clusters=20)
