@@ -1,5 +1,5 @@
 # clean tweet and get all word cluster for every single word in tweets text
-#imports
+# imports
 import pandas as pd
 import nltk
 from nltk.corpus import stopwords
@@ -15,7 +15,7 @@ from itertools import chain
 
 tqdm.pandas(desc="progress-bar")
 t0 = time.time()
-# read from all_replab.xlsx
+# ---------------------read from tweet from all_replab.xlsx--------------------------------#
 data_test = pd.read_excel('all_replab.xlsx', 'Sheet1', ).values
 tweets = pd.DataFrame(data_test, columns=['url', 'text',
                                           'id', 'author',
@@ -35,11 +35,15 @@ tweets_es = tweets[tweets['language'] == 'ES']
 t1 = time.time()
 print("time of reading from xlsx file ", t1 - t0)
 
-# preprocess text
+# -----------------preprocess text--------------------- #
 lemmatizer = nltk.stem.WordNetLemmatizer()
-w_tokenizer = TweetTokenizer()
+
+
 def lemmatize_text(text):
     return [(lemmatizer.lemmatize(w)) for w in w_tokenizer.tokenize(text)]
+
+
+w_tokenizer = TweetTokenizer()
 stop_words = set(stopwords.words('english'))
 tweets['text'] = tweets['text'].apply(str)
 for index, row in tqdm(tweets.iterrows()):
@@ -56,7 +60,6 @@ uni_set = set(chain(*tweets.text.to_list()))
 t2 = time.time()
 print("preprocessing", t2 - t1)
 
-
 set_df = pd.DataFrame(uni_set, columns=['word'])
 set_df['set'] = ''
 payload = {}
@@ -65,17 +68,18 @@ these_regex = "<tag.*?>(.+?)</tag>"
 pattern = re.compile(these_regex)
 
 # get word cluster from flickr site
-try:
-    for i in tqdm(set_df.index):
-        url = "https://www.flickr.com/services/rest/?method=flickr.tags.getRelated&api_key=9e9a14ab054552c65a4ea5e7033e7fc6&tag=&format=rest"
+
+for i in tqdm(set_df.index):
+    try:
+        url = "https://www.flickr.com/services/rest/?method=flickr.tags.getRelated&api_key=37ddb316f5ba8f1eed029c4b351dd093&tag=&format=rest"
         url = url[:113] + set_df.word[i] + url[113:]
         # print(url)
         response = requests.request("GET", url)
         titles = re.findall(pattern, response.text)
         # print(titles)
         set_df.set[i] = titles
-except:
-    print("An exception occurred")
+    except:
+        print("An exception occurred")
 t3 = time.time()
 print("flickr time", t3 - t2)
 

@@ -83,15 +83,16 @@ def read_tweets(tweet_file):
     # read entity id from string
     # drop all extra entity which doesn't have relation to music
     # create entity name which is label of data
-    tweet_data_frame = pd.DataFrame(pd.read_pickle(tweet_file), columns=['url', 'text',
-                                                                         'id', 'author',
-                                                                         'entity_id', 'tweet_url',
-                                                                         'language', 'timestamp',
-                                                                         'urls',
-                                                                         'extended_urls',
-                                                                         'md5_extended_urls',
-                                                                         'is_near_duplicate_of',
-                                                                         'set', 'tokenized', 'text_vec', 'set_vec'])
+    tweet_data_frame = pd.DataFrame(pd.read_pickle(tweet_file), 
+                                                                columns=['url', 'text',
+                                                                'id', 'author',
+                                                                'entity_id', 'tweet_url',
+                                                                'language', 'timestamp',
+                                                                'urls',
+                                                                'extended_urls',
+                                                                'md5_extended_urls',
+                                                                'is_near_duplicate_of',
+                                                                'set', 'tokenized', 'text_vec', 'set_vec'])
     # drop  unnecessary column
     tweet_data_frame = tweet_data_frame.drop(
         columns=['tweet_url', 'timestamp', 'urls', 'extended_urls', 'md5_extended_urls',
