@@ -33,7 +33,7 @@ tweets = tweets[tweets['tweet_text'] != 'Noneccount Suspended']
 tweets_en = tweets[tweets['language'] == 'EN']
 tweets_es = tweets[tweets['language'] == 'ES']
 tweets = tweets.drop(columns=['tweet_url', 'timestamp', 'urls', 'extended_urls', 'md5_extended_urls',
-                              'is_near_duplicate_of', 'tokenized'])
+                              'is_near_duplicate_of'])
 tweets = tweets[tweets.entity_id.isin(['RL2013D04E145', 'RL2013D04E146', 'RL2013D04E149', 'RL2013D04E151',
                                        'RL2013D04E152', 'RL2013D04E153',
                                        'RL2013D04E155', 'RL2013D04E159', 'RL2013D04E161', 'RL2013D04E162',
@@ -44,67 +44,66 @@ tweets = tweets[tweets.entity_id.isin(['RL2013D04E145', 'RL2013D04E146', 'RL2013
 tweets['entity_name'] = ''
 tweets['entity_name_id'] = ''
 # read entity_id and assign entity name and name id (label)  to it
-for index, row in tqdm(tweets.iterrows()):
-    if row.entity_id == 'RL2013D04E145':
-        row.entity_name = 'Adele'
-        row.entity_name_id = '1'
-    if row.entity_id == 'RL2013D04E146':
-        row.entity_name = 'Alicia Keys'
-        row.entity_name_id = '2'
-    if row.entity_id == 'RL2013D04E149':
-        row.entity_name = 'The Beatles'
-        row.entity_name_id = '3'
-    if row.entity_id == 'RL2013D04E151':
-        row.entity_name = 'Led Zeppelin'
-        row.entity_name_id = '4'
-    if row.entity_id == 'RL2013D04E152':
-        row.entity_name = 'Aerosmith'
-        row.entity_name_id = '5'
-    if row.entity_id == 'RL2013D04E153':
-        row.entity_name = 'Bon Jovi'
-        row.entity_name_id = '6'
-    if row.entity_id == 'RL2013D04E155':
-        row.entity_name = 'U2'
-        row.entity_name_id = '7'
-    if row.entity_id == 'RL2013D04E159':
-        row.entity_name = 'AC/DC'
-        row.entity_name_id = '8'
-    if row.entity_id == 'RL2013D04E161':
-        row.entity_name = 'The Wanted'
-        row.entity_name_id = '9'
-    if row.entity_id == 'RL2013D04E162':
-        row.entity_name = 'Maroon 5'
-        row.entity_name_id = '10'
-    if row.entity_id == 'RL2013D04E164':
-        row.entity_name = 'Coldplay'
-        row.entity_name_id = '11'
-    if row.entity_id == 'RL2013D04E166':
-        row.entity_name = 'Lady Gaga'
-        row.entity_name_id = '12'
-    if row.entity_id == 'RL2013D04E167':
-        row.entity_name = 'Madonna'
-        row.entity_name_id = '13'
-    if row.entity_id == 'RL2013D04E169':
-        row.entity_name = 'Jennifer Lopez'
-        row.entity_name_id = '14'
-    if row.entity_id == 'RL2013D04E175':
-        row.entity_name = 'Justin Bieber'
-        row.entity_name_id = '15'
-    if row.entity_id == 'RL2013D04E185':
-        row.entity_name = 'Shakira'
-        row.entity_name_id = '16'
-    if row.entity_id == 'RL2013D04E194':
-        row.entity_name = 'PSY'
-        row.entity_name_id = '17'
-    if row.entity_id == 'RL2013D04E198':
-        row.entity_name = 'The Script'
-        row.entity_name_id = '18'
-    if row.entity_id == 'RL2013D04E206':
-        row.entity_name = 'Whitney Houston'
-        row.entity_name_id = '19'
-    if row.entity_id == 'RL2013D04E207':
-        row.entity_name = 'Britney Spears'
-        row.entity_name_id = '20'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E145', 'entity_name'] = 'Adele'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E145', 'entity_name_id'] = '1'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E146', 'entity_name'] = 'Alicia Keys'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E146', 'entity_name_id'] = '2'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E146', 'entity_name'] = 'Alicia Keys'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E146', 'entity_name_id'] = '2'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E149', 'entity_name'] = 'The Beatles'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E149', 'entity_name_id'] = '3'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E151', 'entity_name'] = 'Led Zeppelin'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E151', 'entity_name_id'] = '4'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E152', 'entity_name'] = 'Aerosmith'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E152', 'entity_name_id'] = '5'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E153', 'entity_name'] = 'Bon Jovi'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E153', 'entity_name_id'] = '6'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E155', 'entity_name'] = 'U2'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E155', 'entity_name_id'] = '7'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E159', 'entity_name'] = 'AC/DC'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E159', 'entity_name_id'] = '8'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E161', 'entity_name'] = 'The Wanted'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E161', 'entity_name_id'] = '9'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E162', 'entity_name'] = 'Maroon 5'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E162', 'entity_name_id'] = '10'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E164', 'entity_name'] = 'Coldplay'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E164', 'entity_name_id'] = '11'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E166', 'entity_name'] = 'Lady Gaga'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E166', 'entity_name_id'] = '12'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E167', 'entity_name'] = 'Madonna'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E167', 'entity_name_id'] = '13'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E169', 'entity_name'] = 'Jennifer Lopez'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E169', 'entity_name_id'] = '14'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E175', 'entity_name'] = 'Justin Bieber'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E175', 'entity_name_id'] = '15'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E185', 'entity_name'] = 'Shakira'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E185', 'entity_name_id'] = '16'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E194', 'entity_name'] = 'PSY'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E194', 'entity_name_id'] = '17'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E198', 'entity_name'] = 'The Script'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E198', 'entity_name_id'] = '18'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E206', 'entity_name'] = 'Whitney Houston'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E206', 'entity_name_id'] = '19'
+
+tweets.loc[tweets['entity_id'] == 'RL2013D04E207', 'entity_name'] = 'Britney Spears'
+tweets.loc[tweets['entity_id'] == 'RL2013D04E207', 'entity_name_id'] = '20'
 
 t1 = time.time()
 print("time of reading from xlsx file ", t1 - t0)
@@ -127,9 +126,12 @@ tweets['cleaned'] = ''
 w_tokenizer = TweetTokenizer()
 tweets['tweet_text'] = tweets['tweet_text'].apply(str)
 tweets['cleaned'] = tweets['tweet_text'].str.lower().replace('[^\w\s]', ' ').replace('\s\s+', ' ')
+
+tweets['cleaned'] = tweets['cleaned'].apply(lambda x: re.sub(r'[^\w\s]', '', x))
+tweets['cleaned'] = tweets['cleaned'].apply(lambda x: re.sub(r'\s\s+', '', x))
 tweets['cleaned'] = tweets['cleaned'].apply(remove_stopwords)
 tweets['cleaned'] = tweets['cleaned'].apply(lambda x: p.clean(x))
-tweets['cleaned'] = tweets['cleaned'].str.lower().replace('[^\w\s]', ' ').replace('\s\s+', ' ')
+
 tweets['cleaned'] = tweets['cleaned'].apply(lambda x: lemmatize_text(x))
 # tweets.to_pickle('tweets.pkl')
 tweets.to_excel('tweets.xlsx')
