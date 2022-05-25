@@ -5,12 +5,16 @@ import nltk
 from nltk.corpus import stopwords
 import preprocessor as p
 import re
-from gensim.parsing.preprocessing import remove_stopwords
+# from gensim.parsing.preprocessing import remove_stopwords
 from nltk.tokenize import TweetTokenizer
 import time
 import requests
 from tqdm import tqdm
 from itertools import chain
+
+stopword_en = nltk.corpus.stopwords.words('english')
+stopword_es = nltk.corpus.stopwords.words('spanish')
+stopword = stopword_en + stopword_es
 
 tqdm.pandas(desc="progress-bar")
 t0 = time.time()
@@ -116,6 +120,11 @@ def lemmatize_text(text):
     return [(lemmatizer.lemmatize(w)) for w in w_tokenizer.tokenize(text)]
 
 
+def remove_stopwords(text):
+    text = [word for word in text if word not in stopword]
+    return text
+
+
 '''for index, row in tqdm(tweets.iterrows()):
     # row.text = p.clean(row.text)
     row.tweet_text = row.tweet_text.lower().replace('[^\w\s]', ' ').replace('\s\s+', ' ')
@@ -126,13 +135,12 @@ tweets['cleaned'] = ''
 w_tokenizer = TweetTokenizer()
 tweets['tweet_text'] = tweets['tweet_text'].apply(str)
 tweets['cleaned'] = tweets['tweet_text'].str.lower().replace('[^\w\s]', ' ').replace('\s\s+', ' ')
-
 tweets['cleaned'] = tweets['cleaned'].apply(lambda x: re.sub(r'[^\w\s]', '', x))
 tweets['cleaned'] = tweets['cleaned'].apply(lambda x: re.sub(r'\s\s+', '', x))
-tweets['cleaned'] = tweets['cleaned'].apply(remove_stopwords)
 tweets['cleaned'] = tweets['cleaned'].apply(lambda x: p.clean(x))
-
 tweets['cleaned'] = tweets['cleaned'].apply(lambda x: lemmatize_text(x))
+tweets['cleaned'] = tweets['cleaned'].apply(lambda x: remove_stopwords(x))
+
 # tweets.to_pickle('tweets.pkl')
 tweets.to_excel('tweets.xlsx')
 # save clean tweet in .pkl file
