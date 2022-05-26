@@ -27,6 +27,8 @@ for root, dirs, files in os.walk('replab2013/replab2013-dataset/test/tweet_info/
 
     data_test.to_pickle('test_info.pkl')
     data_test.to_csv('test__info.csv')
+    # save .csv and .pkl files
+
 print("reading test tweet information finished\n")
 # save .pkl files
 ################################
@@ -42,10 +44,16 @@ for root, dirs, files in os.walk('replab2013/replab2013-dataset/training/tweet_i
                       encoding='ISO-8859-1') as f:
                 data_entity_train = pd.read_table(f, encoding='ISO-8859-1')
                 data_train = pd.concat([data_train, data_entity_train])
-            print("\nconcat %s finished\n" % filename)
+            print("\n concat %s finished\n" % filename)
 
     data_train.to_pickle('train_info.pkl')
     data_train.to_csv('train__info.csv')
+    # save .csv and .pkl files
 print("reading training tweet information finished\n")
 
-# save .pkl files
+# read test and train info .csv files and merged them into one files
+test_info = pd.read_csv("test__info.csv")
+train_info = pd.read_csv("train__info.csv")
+frames = [test_info, train_info]
+result = pd.concat(frames, ignore_index=True, sort=False)
+result.to_csv('all_data_info.csv', index=False)
