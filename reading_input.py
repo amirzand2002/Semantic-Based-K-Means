@@ -24,10 +24,10 @@ for root, dirs, files in os.walk('replab2013/replab2013-dataset/test/tweet_info/
                 data_entity_test = pd.read_table(f, encoding='ISO-8859-1')
                 data_test = pd.concat([data_test, data_entity_test])
             print("\n concat %s finished\n" % filename)
-
-    data_test.to_pickle('test_info.pkl')
-    data_test.to_csv('test__info.csv')
-    # save .csv and .pkl files
+data_test["tweet_id"] = data_test["tweet_id"].apply(str)
+#data_test.to_pickle('test_info.pkl')
+data_test.to_excel('test__info.xlsx')
+# save .csv and .pkl files
 
 print("reading test tweet information finished\n")
 # save .pkl files
@@ -45,15 +45,13 @@ for root, dirs, files in os.walk('replab2013/replab2013-dataset/training/tweet_i
                 data_entity_train = pd.read_table(f, encoding='ISO-8859-1')
                 data_train = pd.concat([data_train, data_entity_train])
             print("\n concat %s finished\n" % filename)
-
-    data_train.to_pickle('train_info.pkl')
-    data_train.to_csv('train__info.csv')
-    # save .csv and .pkl files
+data_train["tweet_id"] = data_train["tweet_id"].apply(str)
+#data_train.to_pickle('train_info.pkl')
+data_train.to_excel('train__info.xlsx')
+# save .csv and .pkl files
 print("reading training tweet information finished\n")
 
 # read test and train info .csv files and merged them into one files
-test_info = pd.read_csv("test__info.csv")
-train_info = pd.read_csv("train__info.csv")
-frames = [test_info, train_info]
+frames = [data_test, data_train]
 result = pd.concat(frames, ignore_index=True, sort=False)
-result.to_csv('all_data_info.csv', index=False)
+result.to_excel("output.xlsx")
