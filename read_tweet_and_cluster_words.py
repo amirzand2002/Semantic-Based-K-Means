@@ -147,6 +147,7 @@ tweets.to_excel('tweets.xlsx')
 uni_set = set(chain(*tweets.cleaned.to_list()))
 t2 = time.time()
 print("preprocessing", t2 - t1)
+''' pre process tweets and tokenize and lemmatize them and put every word of each tweet in "cleaned" column '''
 # -------------------- end of pre processing tweets -----------------------------------
 set_df = pd.DataFrame(uni_set, columns=['word'])
 set_df['set'] = ''
@@ -156,7 +157,9 @@ these_regex = "<tag.*?>(.+?)</tag>"
 pattern = re.compile(these_regex)
 
 # ------------------------ get word cluster from flickr site ---------------------
-
+''' try to read a word from cleaned column of tweets and then give it to the flickr Api 
+then read list of all related words that have relation with the given word
+'''
 for i in tqdm(set_df.index):
     try:
         url = "https://www.flickr.com/services/rest/?method=flickr.tags.getRelated&api_key=44f79721649ff0cba6022e25a3d78076&tag=&format=rest"
@@ -172,6 +175,7 @@ t3 = time.time()
 print("flickr time", t3 - t2)
 
 # save word cluster in word_set.pkl
+''' word cluster of every cleand word from tweets are saved  in "set" column '''
 # set_df.to_pickle('word_set.pkl')
 set_df.to_excel('word_set.xlsx')
 t4 = time.time()
