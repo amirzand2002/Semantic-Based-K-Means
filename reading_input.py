@@ -1,6 +1,7 @@
-# read all tweet info from files and save them in .pkl file
-
-
+'''
+read all tweet information from *.dat* files which are stored in  /test/tweet_info or train/tweet_info directories
+first save them separately in order to futures usages and them save them together
+'''
 # imports
 import os
 import pandas as pd
