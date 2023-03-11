@@ -6,9 +6,15 @@ __pycache__/
 ######
 *.pkl
 replab2013/
+glove/
+jac22-7-2022/
 *.xlsx
 *.csv
 *.ipynb
+*.txt
+*.vocab
+*.word2vec
+*.npy
 ######
 # C extensions
 *.so
