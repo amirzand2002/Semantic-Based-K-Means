@@ -5,6 +5,7 @@ __pycache__/
 
 ######
 *.pkl
+*.pickle
 replab2013/
 glove/
 jac22-7-2022/
