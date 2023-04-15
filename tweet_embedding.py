@@ -103,3 +103,8 @@ for items in tweets:
 # save dictionary to embeddings_tweet.pkl file
 with open('embeddings_tweet.pickle', 'wb') as handle:
     pickle.dump(embeddings_tweet, handle, protocol=pickle.HIGHEST_PROTOCOL)
+data['embedding'] = ''
+for index, row in data.iterrows():
+    if data.words_with_flicker[index] in embeddings_tweet:
+        data.embedding[index] = embeddings_tweet[data.words_with_flicker[index]]
+data.to_excel("tweets_with_emb.xlsx")
