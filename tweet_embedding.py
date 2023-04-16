@@ -23,14 +23,10 @@ from keras.layers import Embedding
 
 def cosine_similarity(a, b):
     nominator = np.dot(a, b)
-
     a_norm = np.sqrt(np.sum(a ** 2))
     b_norm = np.sqrt(np.sum(b ** 2))
-
     denominator = a_norm * b_norm
-
     cosine_similarity = nominator / denominator
-
     return cosine_similarity
 
 
@@ -108,3 +104,5 @@ for index, row in data.iterrows():
     if data.words_with_flicker[index] in embeddings_tweet:
         data.embedding[index] = embeddings_tweet[data.words_with_flicker[index]]
 data.to_excel("tweets_with_emb.xlsx")
+# TODO: use data.embedding to cluster them with the usage of K-means and after that use
+#  other clustering algorithm like DBSCAN
