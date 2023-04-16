@@ -104,5 +104,3 @@ for index, row in data.iterrows():
     if data.words_with_flicker[index] in embeddings_tweet:
         data.embedding[index] = embeddings_tweet[data.words_with_flicker[index]]
 data.to_excel("tweets_with_emb.xlsx")
-# TODO: use data.embedding to cluster them with the usage of K-means and after that use
-#  other clustering algorithm like DBSCAN

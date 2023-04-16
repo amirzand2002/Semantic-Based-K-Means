@@ -6,6 +6,7 @@ __pycache__/
 ######
 *.pkl
 *.pickle
+*.m
 replab2013/
 glove/
 jac22-7-2022/
@@ -16,6 +17,7 @@ jac22-7-2022/
 *.vocab
 *.word2vec
 *.npy
+embeddings_tweet.pickle
 ######
 # C extensions
 *.so
