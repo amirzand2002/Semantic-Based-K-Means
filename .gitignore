@@ -142,3 +142,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+*.pickle
+embeddings_tweet.pickle
