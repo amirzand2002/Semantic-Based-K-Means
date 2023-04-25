@@ -83,7 +83,7 @@ for items in tweets:
             # print(item)
             # print(embeddings_index[item])
             # print(math.cos(360 / s * counter))
-            j = embeddings_index[item] * math.cos((360 / s) * counter)
+            j = embeddings_index[item] * abs(math.cos((360 / s) * counter))
             # print(embeddings_index[item] * math.cos((360 / s) * counter))
             embeddings_add = embeddings_add + j
 
@@ -103,4 +103,4 @@ data['embedding'] = ''
 for index, row in data.iterrows():
     if data.words_with_flicker[index] in embeddings_tweet:
         data.embedding[index] = embeddings_tweet[data.words_with_flicker[index]]
-data.to_excel("tweets_with_emb.xlsx")
+data.to_excel("tweets_with_emb_best.xlsx")
