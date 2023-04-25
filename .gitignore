@@ -21,7 +21,6 @@ embeddings_tweet.pickle
 ######
 # C extensions
 *.so
-
 # Distribution / packaging
 .Python
 build/
